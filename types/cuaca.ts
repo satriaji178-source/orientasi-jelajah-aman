@@ -14,10 +14,10 @@ export interface WeatherCardProps {
   tingkatAQI: TingkatAQI;
 }
 
-// Tambahan untuk Latihan Mandiri
 export interface LaporanUdara {
   kota: string;
   indeksAQI: number;
-  tingkat: TingkatAQI; // atau union: "BAIK" | "SEDANG" | "TIDAK_SEHAT" | "BERBAHAYA"
+  tingkat: TingkatAQI;
+  union: "BAIK" | "SEDANG" | "TIDAK_SEHAT" | "BERBAHAYA";
   diperbaruiPada?: string;
 }
