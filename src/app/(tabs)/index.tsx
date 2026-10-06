@@ -1,5 +1,6 @@
-import { router } from "expo-router";
-import { useState, useEffect, useRef } from "react";
+//src/app/%28tabs%29/index.tsx
+import { router, useFocusEffect } from "expo-router";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { View, Text, ActivityIndicator, Button, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import SearchBox from "../../components/SearchBox";
@@ -14,6 +15,7 @@ import { labelKodeCuaca } from "../../constants/weatherCodes";
 import { HasilGeocoding } from "../../../types/geocoding";
 import { DataCuacaLengkap, DataKualitasUdara } from "../../../types/weather";
 import { mintaIzinLokasi, ambilKoordinatSaatIni } from "../../services/locationService";
+import { ambilSemuaFavorit } from "../../services/favoritStorage";
 
 export default function HalamanUtama() {
   const [teksCari, setTeksCari] = useState("");
@@ -29,6 +31,18 @@ export default function HalamanUtama() {
 
   const [pesanLokasi, setPesanLokasi] = useState<string | null>(null);
 
+  // State untuk menyimpan daftar ID favorit
+  const [daftarIdFavorit, setDaftarIdFavorit] = useState<number[]>([]);
+
+  // Memperbarui daftar ID favorit setiap kali layar Beranda difokuskan
+  useFocusEffect(
+    useCallback(() => {
+      ambilSemuaFavorit().then((favorit) => {
+        setDaftarIdFavorit(favorit.map((f) => f.id));
+      });
+    }, [])
+  );
+
   useEffect(() => {
     if (teksTertunda.trim().length === 0) {
       setHasilPencarian([]);
@@ -39,6 +53,7 @@ export default function HalamanUtama() {
 
   async function pilihKota(kota: HasilGeocoding) {
     setKotaTerpilih(kota);
+    setHasilPencarian([]); // Menyembunyikan daftar pencarian setelah kota dipilih
     const idSaatIni = ++requestIdRef.current;
     setSedangMemuat(true);
     setPesanError(null);
@@ -80,6 +95,9 @@ export default function HalamanUtama() {
     });
   }
 
+  // Cek apakah kota terpilih sudah ada di dalam daftar favorit
+  const isFavorit = kotaTerpilih ? daftarIdFavorit.includes(kotaTerpilih.id) : false;
+
   return (
     <SafeAreaView style={{ flex: 1, padding: 16, gap: 16 }}>
       <SearchBox onCari={setTeksCari} />
@@ -113,8 +131,10 @@ export default function HalamanUtama() {
             indeksAQI={kualitasUdara.indeksAQI}
           />
 
+          {/* Nonaktifkan tombol jika sudah favorit */}
           <Button
-            title="Tambahkan ke Favorit"
+            title={isFavorit ? "Sudah di Favorit" : "Tambahkan ke Favorit"}
+            disabled={isFavorit}
             onPress={() =>
               router.push({
                 pathname: "/tambah-favorit",
@@ -132,7 +152,7 @@ export default function HalamanUtama() {
             Indeks AQI: {kualitasUdara.indeksAQI} ({konversiTingkatAQI(kualitasUdara.indeksAQI)})
           </Text>
 
-          < Text style={{ fontSize: 13, color: "#444", marginTop: -8 }}>
+          <Text style={{ fontSize: 13, color: "#444", marginTop: -8 }}>
             Suhu Hari Ini: Maks {cuaca.harian.suhuMaksimal[0]}°C / Min {cuaca.harian.suhuMinimal[0]}°C
           </Text>
 
