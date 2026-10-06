@@ -1,3 +1,4 @@
+import { router } from "expo-router";
 import { useState, useEffect, useRef } from "react";
 import { View, Text, ActivityIndicator, Button, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -112,7 +113,26 @@ export default function HalamanUtama() {
             indeksAQI={kualitasUdara.indeksAQI}
           />
 
-          <Text style={{ fontSize: 13, color: "#444", marginTop: -8 }}>
+          <Button
+            title="Tambahkan ke Favorit"
+            onPress={() =>
+              router.push({
+                pathname: "/tambah-favorit",
+                params: {
+                  id: String(kotaTerpilih.id),
+                  nama: kotaTerpilih.name,
+                  lat: String(kotaTerpilih.latitude),
+                  lon: String(kotaTerpilih.longitude),
+                },
+              })
+            }
+          />
+
+          <Text style={{ fontSize: 13, color: "#444", marginTop: -4 }}>
+            Indeks AQI: {kualitasUdara.indeksAQI} ({konversiTingkatAQI(kualitasUdara.indeksAQI)})
+          </Text>
+
+          < Text style={{ fontSize: 13, color: "#444", marginTop: -8 }}>
             Suhu Hari Ini: Maks {cuaca.harian.suhuMaksimal[0]}°C / Min {cuaca.harian.suhuMinimal[0]}°C
           </Text>
 
