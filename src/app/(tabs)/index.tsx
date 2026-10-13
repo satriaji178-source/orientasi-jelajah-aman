@@ -164,10 +164,21 @@ export default function HalamanUtama() {
               suhu={hasil.cuaca.saatIni.suhu}
               tingkatAQI={konversiTingkatAQI(hasil.kualitasUdara.indeksAQI)}
             />
-            <Text style={{ fontSize: 12, color: "#888888" }}>
+
+            <Text style={{ fontSize: 13, color: "#444444" }}>
               Kondisi: {labelKodeCuaca(hasil.cuaca.saatIni.kodeCuaca)} {"\u2022"} Angin{" "}
               {hasil.cuaca.saatIni.kecepatanAngin} km/j
             </Text>
+
+            <Text style={{ fontSize: 12, color: "#444444" }}>
+              PM2.5:{" "} {hasil.kualitasUdara.pm25} µg/m³ {"\u2022"} PM10: {hasil.kualitasUdara.pm10} µg/m³
+            </Text>
+
+            <Text style={{ fontSize: 12, color: "#444444" }}>
+              Indeks AQI: {hasil.kualitasUdara.indeksAQI} {"\u2022"} Tingkat:{" "}
+              {konversiTingkatAQI(hasil.kualitasUdara.indeksAQI)}
+            </Text>
+
             <Button
               title="Perbarui Sekarang"
               onPress={() => pilihKota(kotaTerpilih, true)}
