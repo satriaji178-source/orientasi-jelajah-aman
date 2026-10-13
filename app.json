@@ -20,7 +20,7 @@
       "predictiveBackGestureEnabled": false
     },
     "web": {
-      "output": "static",
+      "output": "single",
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
@@ -35,10 +35,13 @@
       ],
       [
         "expo-location",
-        { 
+        {
           "locationWhenInUsePermission": "Jelajah Aman menggunakan lokasi Anda untuk menampilkan cuaca di kota terdekat."
         }
-      ]
+      ],
+      "expo-sqlite",
+      "expo-image",
+      "expo-web-browser"
     ],
     "experiments": {
       "typedRoutes": true,
