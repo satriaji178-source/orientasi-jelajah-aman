@@ -1,5 +1,16 @@
 # Welcome to your Expo app 👋
 
+# Jelajah Aman
+
+Aplikasi pemantau cuaca dan kualitas udara dengan pendekatan *offline-first* berbasis Expo dan SQLite.
+
+## Penjelasan Status Data
+- **Cache-segar**: Data diambil dari penyimpanan lokal karena umurnya masih di bawah batas TTL (waktu kedaluwarsa), sehingga menghemat penggunaan jaringan.
+- **Cache-basi**: Data lokal yang sudah melewati batas TTL dan digunakan sebagai cadangan saat perangkat kehilangan koneksi internet.
+- **First-run offline**: Kondisi ketika perangkat tidak memiliki koneksi internet sama sekali dan belum ada data cache yang pernah disimpan sebelumnya.
+- **Pentingnya Label Status**: Label status memberikan informasi yang jujur dan transparan kepada pengguna mengenai kebaruan data, sehingga pengguna tahu kapan informasi cuaca dapat diandalkan atau sudah usang.
+
+
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
 ## Get started
