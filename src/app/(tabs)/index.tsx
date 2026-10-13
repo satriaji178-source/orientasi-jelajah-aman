@@ -148,19 +148,19 @@ export default function HalamanUtama() {
             }
           />
 
-          <Text style={{ fontSize: 13, color: "#444", marginTop: -4 }}>
-            Indeks AQI: {kualitasUdara.indeksAQI} ({konversiTingkatAQI(kualitasUdara.indeksAQI)})
-          </Text>
-
           <Text style={{ fontSize: 13, color: "#444", marginTop: -8 }}>
             Suhu Hari Ini: Maks {cuaca.harian.suhuMaksimal[0]}°C / Min {cuaca.harian.suhuMinimal[0]}°C
           </Text>
 
-          <Text style={{ fontSize: 12, color: "#888" }}>
-            Kondisi: {labelKodeCuaca(cuaca.saatIni.kodeCuaca)} | Angin: {cuaca.saatIni.kecepatanAngin} km/j
+          <Text style={{ fontSize: 13, color: "#444", marginTop: -8 }}>
+            Kondisi: {labelKodeCuaca(cuaca.saatIni.kodeCuaca)}
           </Text>
 
-          <Text style={{ fontSize: 11, color: "#668", textAlign: "center" }}>
+          <Text style={{ fontSize: 13, color: "#444", marginTop: -8 }}>
+            Angin: {cuaca.saatIni.kecepatanAngin} km/jam
+          </Text>
+
+          <Text style={{ fontSize: 13, color: "#444", marginTop: -8 }}>
             PM2.5: {kualitasUdara.pm25} µg/m³ | PM10: {kualitasUdara.pm10} µg/m³
           </Text>
         </>
